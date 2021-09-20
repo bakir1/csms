@@ -2218,6 +2218,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Rate",
   created: function created() {
@@ -20308,6 +20310,19 @@ var render = function() {
               _vm._v(" "),
               _c("td", { attrs: { scope: "row" } }, [
                 _vm._v(_vm._s(rate.transaction))
+              ]),
+              _vm._v(" "),
+              _c("td", { attrs: { scope: "row" } }, [
+                _vm._v(
+                  "\n          " +
+                    _vm._s(
+                      (_vm.sum =
+                        +_vm.eprice(rate) +
+                        +_vm.timePrice(rate) +
+                        +rate.transaction)
+                    ) +
+                    "\n        "
+                )
               ])
             ])
           ])
@@ -20352,7 +20367,9 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("time(2€ hour)")]),
         _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("transaction")])
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("transaction")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("price")])
       ])
     ])
   }

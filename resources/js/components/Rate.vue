@@ -30,7 +30,7 @@
       </tbody>
     </table>
 
-     <h2 class="text-center p-3 text-white bg-secondary mt-4">
+    <h2 class="text-center p-3 text-white bg-secondary mt-4">
       Charging Process Rating
     </h2>
 
@@ -39,8 +39,9 @@
         <tr>
           <th scope="col">id</th>
           <th scope="col">energy</th>
-          <th scope="col">time(2€ hour)</th>          
+          <th scope="col">time(2€ hour)</th>
           <th scope="col">transaction</th>
+          <th scope="col">price</th>
         </tr>
       </thead>
 
@@ -48,14 +49,15 @@
         <tr>
           <td scope="row">{{ rate.id }}</td>
           <td scope="row">{{ eprice(rate) }}</td>
-          <td scope="row">{{ timePrice(rate) }}</td>          
+          <td scope="row">{{ timePrice(rate) }}</td>
           <td scope="row">{{ rate.transaction }}</td>
+          <td scope="row">
+            {{ (sum = +eprice(rate) + +timePrice(rate) + +rate.transaction) }}
+          </td>
         </tr>
       </tbody>
     </table>
-    
   </div>
-  
 </template>
 
 <script>
@@ -90,9 +92,8 @@ export default {
     },
     timePrice(rate, a) {
       a = (83 * 2) / 60;
-      return rate = a.toFixed(3);
+      return (rate = a.toFixed(3));
     },
-
   },
   mounted() {
     console.log("Rate list component mounted");
