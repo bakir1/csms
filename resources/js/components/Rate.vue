@@ -9,23 +9,25 @@
         <tr>
           <th scope="col">id</th>
           <th scope="col">energy</th>
-          <th scope="col">time</th>
-          <th scope="col">transaction</th>
-          <th scope="col">time(2€ hour)</th>
+          <th scope="col">time(consumed)</th>
           <th scope="col">meterStart</th>
           <th scope="col">meterStop</th>
+          <th scope="col">timestampStart</th>
+          <th scope="col">timestampStop</th>
+
+          
         </tr>
       </thead>
 
       <tbody v-for="rate in rates" :key="rate.id">
         <tr>
           <td scope="row">{{ rate.id }}</td>
-          <td scope="row">{{ eprice(rate) }}</td>
+          <td scope="row">{{ rate.energy }}</td>
           <td scope="row">{{ timeConsumed(rate) }}</td>
-          <td scope="row">{{ rate.transaction }}</td>
-          <td scope="row">{{ timePrice(rate) }}</td>
           <td scope="row">{{ rate.meterStart }}</td>
           <td scope="row">{{ rate.meterStop }}</td>
+          <td scope="row">{{ rate.timestampStart }}</td>
+          <td scope="row">{{ rate.timestampStop }}</td>
         </tr>
       </tbody>
     </table>
@@ -92,7 +94,7 @@ export default {
     },
     timePrice(rate, a) {
       a = (83 * 2) / 60;
-      return (rate = a.toFixed(3));
+      return rate = a.toFixed(3);
     },
   },
   mounted() {
