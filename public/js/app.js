@@ -2189,8 +2189,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'Rate',
   created: function created() {
@@ -2205,6 +2203,21 @@ __webpack_require__.r(__webpack_exports__);
         _this.rates = response.data;
         console.log(_this.rates);
       });
+    },
+    eprice: function eprice(rate, a) {
+      a = rate.energy * (rate.meterStop - rate.meterStart);
+      rate = Math.round(a) / 1000;
+      return rate.toFixed(2);
+    },
+    timePrice: function timePrice(rate, date1, date2, res, days, hours, minutes, seconds) {
+      date1 = new Date(rate.timestampStart);
+      date2 = new Date(rate.timestampStop);
+      res = Math.abs(date1 - date2) / 1000;
+      days = Math.floor(res / 86400);
+      hours = Math.floor(res / 3600) % 24;
+      minutes = Math.floor(res / 60) % 60;
+      seconds = res % 60;
+      return rate = hours + ':' + minutes;
     }
   },
   mounted: function mounted() {
@@ -20191,52 +20204,67 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "container" }, [
+    _c("h2", { staticClass: "text-center p-2 text-white bg-secondary mt-5" }, [
+      _vm._v("Charging System")
+    ]),
+    _vm._v(" "),
+    _c(
+      "table",
+      { staticClass: "table" },
+      [
+        _vm._m(0),
+        _vm._v(" "),
+        _vm._l(_vm.rates, function(rate) {
+          return _c("tbody", { key: rate.id }, [
+            _c("tr", [
+              _c("td", { attrs: { scope: "row" } }, [_vm._v(_vm._s(rate.id))]),
+              _vm._v(" "),
+              _c("td", { attrs: { scope: "row" } }, [
+                _vm._v(_vm._s(_vm.eprice(rate)))
+              ]),
+              _vm._v(" "),
+              _c("td", { attrs: { scope: "row" } }, [
+                _vm._v(_vm._s(_vm.timePrice(rate)))
+              ]),
+              _vm._v(" "),
+              _c("td", { attrs: { scope: "row" } }, [
+                _vm._v(_vm._s(rate.transaction))
+              ]),
+              _vm._v(" "),
+              _c("td", { attrs: { scope: "row" } }, [
+                _vm._v(_vm._s(rate.meterStart))
+              ]),
+              _vm._v(" "),
+              _c("td", { attrs: { scope: "row" } }, [
+                _vm._v(_vm._s(rate.meterStop))
+              ])
+            ])
+          ])
+        })
+      ],
+      2
+    )
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container" }, [
-      _c(
-        "h2",
-        { staticClass: "text-center p-2 text-white bg-secondary mt-5" },
-        [_vm._v("Charging System")]
-      ),
-      _vm._v(" "),
-      _c("table", { staticClass: "table" }, [
-        _c("thead", [
-          _c("tr", [
-            _c("th", { attrs: { scope: "col" } }, [_vm._v("id")]),
-            _vm._v(" "),
-            _c("th", { attrs: { scope: "col" } }, [_vm._v("energy")]),
-            _vm._v(" "),
-            _c("th", { attrs: { scope: "col" } }, [_vm._v("time")]),
-            _vm._v(" "),
-            _c("th", { attrs: { scope: "col" } }, [_vm._v("transaction")]),
-            _vm._v(" "),
-            _c("th", { attrs: { scope: "col" } }, [_vm._v("timeStart")]),
-            _vm._v(" "),
-            _c("th", { attrs: { scope: "col" } }, [_vm._v("timeStop")])
-          ])
-        ]),
+    return _c("thead", [
+      _c("tr", [
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("id")]),
         _vm._v(" "),
-        _c("tbody", [
-          _c("tr", [
-            _c("td", { attrs: { scope: "row" } }, [_vm._v("1")]),
-            _vm._v(" "),
-            _c("td", { attrs: { scope: "row" } }, [_vm._v("0.3")]),
-            _vm._v(" "),
-            _c("td", { attrs: { scope: "row" } }, [_vm._v("2")]),
-            _vm._v(" "),
-            _c("td", { attrs: { scope: "row" } }, [_vm._v("1")]),
-            _vm._v(" "),
-            _c("td", { attrs: { scope: "row" } }, [_vm._v("234")]),
-            _vm._v(" "),
-            _c("td", { attrs: { scope: "row" } }, [_vm._v("2341")])
-          ])
-        ])
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("energy")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("time")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("transaction")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("timeStart")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("timeStop")])
       ])
     ])
   }

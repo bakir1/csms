@@ -15,16 +15,14 @@
                 </tr>
             </thead>
 
-            <tbody>
+            <tbody v-for="rate in rates" :key="rate.id">
                 <tr>
-                    <td scope="row">1</td>
-                    <td scope="row">0.3</td>
-                    <td scope="row">2</td>
-                    <td scope="row">1</td>
-                    <td scope="row">234</td>
-                    <td scope="row">2341</td>
-                    
-
+                    <td scope="row">{{ rate.id }}</td>
+                    <td scope="row">{{ eprice(rate) }}</td>
+                    <td scope="row">{{ timePrice(rate) }}</td>
+                    <td scope="row">{{ rate.transaction }}</td>
+                    <td scope="row">{{ rate.meterStart }}</td>
+                    <td scope="row">{{ rate.meterStop }}</td>                    
                 </tr>
             </tbody>
         </table>
@@ -44,6 +42,22 @@ export default {
                 this.rates = response.data
                 console.log(this.rates);
             });
+         },
+         eprice(rate, a){
+            a = (rate.energy * (rate.meterStop-rate.meterStart));
+            rate = Math.round(a)/1000;
+            return rate.toFixed(2);
+            },
+         timePrice(rate, date1, date2, res, days, hours, minutes, seconds){
+          date1 = new Date( rate.timestampStart );
+          date2 = new Date(  rate.timestampStop  );
+          res = Math.abs(date1 - date2) / 1000;
+          days = Math.floor(res / 86400);
+          hours = Math.floor(res / 3600) % 24;        
+          minutes = Math.floor(res / 60) % 60;
+          seconds = res % 60;
+
+          return rate = hours +':'+ minutes;
          },
         },
         mounted(){

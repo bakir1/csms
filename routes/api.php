@@ -24,7 +24,9 @@ Route::post('/rates', function(){
         'time'          => '2',
         'transaction'   => '1',
         'meterStart'    => '1204307',
-        'meterStop'     => '1215230'
+        'meterStop'     => '1215230',
+        'timestampStart' => '2021-04-05T10:04:00Z'
+        'timestampStop' => '2021-04-05T11:27:00Z'
     ]); 
 });
 */
