@@ -14,7 +14,8 @@ class RateController extends Controller
      */
     public function index()
     {
-        return Rate::all();   
+        $rates = Rate::all();   
+        return $rates;
     }
 
     /**

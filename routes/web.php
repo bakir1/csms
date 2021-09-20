@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\RateController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +14,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+Route::get('/rate', function () {
     return view('welcome');
+});
+
+Route::prefix('api')->group(function(){
+    Route::get('/rates', [RateController::class, 'index']);
 });
