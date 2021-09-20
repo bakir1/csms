@@ -2189,8 +2189,37 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: 'Rate',
+  name: "Rate",
   created: function created() {
     this.loadData();
   },
@@ -2198,7 +2227,7 @@ __webpack_require__.r(__webpack_exports__);
     loadData: function loadData() {
       var _this = this;
 
-      var url = this.url + '/api/rates';
+      var url = this.url + "/api/rates";
       this.axios.get(url).then(function (response) {
         _this.rates = response.data;
         console.log(_this.rates);
@@ -2209,7 +2238,7 @@ __webpack_require__.r(__webpack_exports__);
       rate = Math.round(a) / 1000;
       return rate.toFixed(2);
     },
-    timePrice: function timePrice(rate, date1, date2, res, days, hours, minutes, seconds) {
+    timeConsumed: function timeConsumed(rate, date1, date2, res, days, hours, minutes, seconds) {
       date1 = new Date(rate.timestampStart);
       date2 = new Date(rate.timestampStop);
       res = Math.abs(date1 - date2) / 1000;
@@ -2217,11 +2246,15 @@ __webpack_require__.r(__webpack_exports__);
       hours = Math.floor(res / 3600) % 24;
       minutes = Math.floor(res / 60) % 60;
       seconds = res % 60;
-      return rate = hours + ':' + minutes;
+      return rate = hours + "hr" + ":" + minutes + "min";
+    },
+    timePrice: function timePrice(rate, a) {
+      a = 83 * 2 / 60;
+      return rate = a.toFixed(3);
     }
   },
   mounted: function mounted() {
-    console.log('Rate list component mounted');
+    console.log("Rate list component mounted");
   },
   data: function data() {
     return {
@@ -20206,7 +20239,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
     _c("h2", { staticClass: "text-center p-2 text-white bg-secondary mt-5" }, [
-      _vm._v("Charging System")
+      _vm._v("\n    Charging Process\n  ")
     ]),
     _vm._v(" "),
     _c(
@@ -20225,11 +20258,15 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("td", { attrs: { scope: "row" } }, [
-                _vm._v(_vm._s(_vm.timePrice(rate)))
+                _vm._v(_vm._s(_vm.timeConsumed(rate)))
               ]),
               _vm._v(" "),
               _c("td", { attrs: { scope: "row" } }, [
                 _vm._v(_vm._s(rate.transaction))
+              ]),
+              _vm._v(" "),
+              _c("td", { attrs: { scope: "row" } }, [
+                _vm._v(_vm._s(_vm.timePrice(rate)))
               ]),
               _vm._v(" "),
               _c("td", { attrs: { scope: "row" } }, [
@@ -20238,6 +20275,39 @@ var render = function() {
               _vm._v(" "),
               _c("td", { attrs: { scope: "row" } }, [
                 _vm._v(_vm._s(rate.meterStop))
+              ])
+            ])
+          ])
+        })
+      ],
+      2
+    ),
+    _vm._v(" "),
+    _c("h2", { staticClass: "text-center p-3 text-white bg-secondary mt-4" }, [
+      _vm._v("\n    Charging Process Rating\n  ")
+    ]),
+    _vm._v(" "),
+    _c(
+      "table",
+      { staticClass: "table" },
+      [
+        _vm._m(1),
+        _vm._v(" "),
+        _vm._l(_vm.rates, function(rate) {
+          return _c("tbody", { key: rate.id }, [
+            _c("tr", [
+              _c("td", { attrs: { scope: "row" } }, [_vm._v(_vm._s(rate.id))]),
+              _vm._v(" "),
+              _c("td", { attrs: { scope: "row" } }, [
+                _vm._v(_vm._s(_vm.eprice(rate)))
+              ]),
+              _vm._v(" "),
+              _c("td", { attrs: { scope: "row" } }, [
+                _vm._v(_vm._s(_vm.timePrice(rate)))
+              ]),
+              _vm._v(" "),
+              _c("td", { attrs: { scope: "row" } }, [
+                _vm._v(_vm._s(rate.transaction))
               ])
             ])
           ])
@@ -20262,9 +20332,27 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("transaction")]),
         _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("timeStart")]),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("time(2€ hour)")]),
         _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("timeStop")])
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("meterStart")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("meterStop")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("id")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("energy")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("time(2€ hour)")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("transaction")])
       ])
     ])
   }
