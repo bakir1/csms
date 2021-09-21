@@ -20,6 +20,10 @@ class CreateRatesTable extends Migration
             $table->decimal('transaction');
             $table->integer('meterStart');
             $table->integer('meterStop');
+            $table->timestamp('timestampStart');
+            $table->timestamp('timestampStop');
+
+
         });
     }
 

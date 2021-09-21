@@ -3,6 +3,7 @@
 use App\Http\Controllers\RateController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Models\Rate;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/rates', [RateController::class, 'index']);
 Route::post('/rates', [RateController::class, 'store']);
-/*
+
 Route::post('/rates', function(){
     return Rate::create([
         'energy'        => '0.30',
@@ -25,11 +26,11 @@ Route::post('/rates', function(){
         'transaction'   => '1',
         'meterStart'    => '1204307',
         'meterStop'     => '1215230',
-        'timestampStart' => '2021-04-05T10:04:00Z'
-        'timestampStop' => '2021-04-05T11:27:00Z'
+        'timestampStart' => '2021-04-05 10:04:00',
+        'timestampStop' => '2021-04-05 12:27:00'
     ]); 
 });
-*/
+
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });

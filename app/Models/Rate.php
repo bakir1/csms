@@ -16,7 +16,9 @@ class Rate extends Model
         'time',
         'transaction',
         'meterStart',
-        'meterStop'
+        'meterStop',
+        'timestampStart',
+        'timestampStop'
     ];
 
     public $timestamps = false;

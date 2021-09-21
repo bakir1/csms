@@ -2237,24 +2237,27 @@ __webpack_require__.r(__webpack_exports__);
         console.log(_this.rates);
       });
     },
-    eprice: function eprice(rate, a) {
-      a = rate.energy * (rate.meterStop - rate.meterStart);
-      rate = Math.round(a) / 1000;
-      return rate.toFixed(2);
+    eprice: function eprice(rate) {
+      var a = rate.energy * (rate.meterStop - rate.meterStart);
+      return (a / 1000).toFixed(2);
     },
-    timeConsumed: function timeConsumed(rate, date1, date2, res, days, hours, minutes, seconds) {
-      date1 = new Date(rate.timestampStart);
-      date2 = new Date(rate.timestampStop);
-      res = Math.abs(date1 - date2) / 1000;
-      days = Math.floor(res / 86400);
-      hours = Math.floor(res / 3600) % 24;
-      minutes = Math.floor(res / 60) % 60;
-      seconds = res % 60;
-      return rate = hours + "hr" + ":" + minutes + "min";
+    timeConsumed: function timeConsumed(rate) {
+      var date1 = new Date(rate.timestampStart);
+      var date2 = new Date(rate.timestampStop);
+      var res = Math.abs(date1 - date2) / 1000;
+      var hours = Math.floor(res / 3600) % 24;
+      var minutes = Math.floor(res / 60) % 60;
+      this.allMinutes.push({
+        rateId: rate.id,
+        timeInMin: Math.floor(res / 60)
+      });
+      return hours + "hr" + ":" + minutes + "min";
     },
-    timePrice: function timePrice(rate, a) {
-      a = 83 * 2 / 60;
-      return rate = a.toFixed(3);
+    timePrice: function timePrice(id) {
+      var a = this.allMinutes.find(function (item) {
+        return item.rateId === id;
+      }).timeInMin * 2 / 60;
+      return a.toFixed(3);
     }
   },
   mounted: function mounted() {
@@ -2263,7 +2266,8 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       url: document.head.querySelector('meta[name="url"]').content,
-      rates: []
+      rates: [],
+      allMinutes: []
     };
   }
 });
@@ -20246,92 +20250,87 @@ var render = function() {
       _vm._v("\n    Charging Process\n  ")
     ]),
     _vm._v(" "),
-    _c(
-      "table",
-      { staticClass: "table" },
-      [
-        _vm._m(0),
-        _vm._v(" "),
-        _vm._l(_vm.rates, function(rate) {
-          return _c("tbody", { key: rate.id }, [
-            _c("tr", [
-              _c("td", { attrs: { scope: "row" } }, [_vm._v(_vm._s(rate.id))]),
-              _vm._v(" "),
-              _c("td", { attrs: { scope: "row" } }, [
-                _vm._v(_vm._s(rate.energy))
-              ]),
-              _vm._v(" "),
-              _c("td", { attrs: { scope: "row" } }, [
-                _vm._v(_vm._s(_vm.timeConsumed(rate)))
-              ]),
-              _vm._v(" "),
-              _c("td", { attrs: { scope: "row" } }, [
-                _vm._v(_vm._s(rate.meterStart))
-              ]),
-              _vm._v(" "),
-              _c("td", { attrs: { scope: "row" } }, [
-                _vm._v(_vm._s(rate.meterStop))
-              ]),
-              _vm._v(" "),
-              _c("td", { attrs: { scope: "row" } }, [
-                _vm._v(_vm._s(rate.timestampStart))
-              ]),
-              _vm._v(" "),
-              _c("td", { attrs: { scope: "row" } }, [
-                _vm._v(_vm._s(rate.timestampStop))
-              ])
+    _c("table", { staticClass: "table" }, [
+      _vm._m(0),
+      _vm._v(" "),
+      _c(
+        "tbody",
+        _vm._l(_vm.rates, function(rate, index) {
+          return _c("tr", { key: index }, [
+            _c("td", { attrs: { scope: "row" } }, [_vm._v(_vm._s(rate.id))]),
+            _vm._v(" "),
+            _c("td", { attrs: { scope: "row" } }, [
+              _vm._v(_vm._s(rate.energy))
+            ]),
+            _vm._v(" "),
+            _c("td", { attrs: { scope: "row" } }, [
+              _vm._v(_vm._s(_vm.timeConsumed(rate)))
+            ]),
+            _vm._v(" "),
+            _c("td", { attrs: { scope: "row" } }, [
+              _vm._v(_vm._s(rate.meterStart))
+            ]),
+            _vm._v(" "),
+            _c("td", { attrs: { scope: "row" } }, [
+              _vm._v(_vm._s(rate.meterStop))
+            ]),
+            _vm._v(" "),
+            _c("td", { attrs: { scope: "row" } }, [
+              _vm._v(_vm._s(rate.timestampStart))
+            ]),
+            _vm._v(" "),
+            _c("td", { attrs: { scope: "row" } }, [
+              _vm._v(_vm._s(rate.timestampStop))
             ])
           ])
-        })
-      ],
-      2
-    ),
+        }),
+        0
+      )
+    ]),
     _vm._v(" "),
     _c("h2", { staticClass: "text-center p-3 text-white bg-secondary mt-4" }, [
       _vm._v("\n    Charging Process Rating\n  ")
     ]),
     _vm._v(" "),
-    _c(
-      "table",
-      { staticClass: "table" },
-      [
-        _vm._m(1),
-        _vm._v(" "),
-        _vm._l(_vm.rates, function(rate) {
-          return _c("tbody", { key: rate.id }, [
-            _c("tr", [
-              _c("td", { attrs: { scope: "row" } }, [_vm._v(_vm._s(rate.id))]),
-              _vm._v(" "),
-              _c("td", { attrs: { scope: "row" } }, [
-                _vm._v(_vm._s(_vm.eprice(rate)))
-              ]),
-              _vm._v(" "),
-              _c("td", { attrs: { scope: "row" } }, [
-                _vm._v(_vm._s(_vm.timePrice(rate)))
-              ]),
-              _vm._v(" "),
-              _c("td", { attrs: { scope: "row" } }, [
-                _vm._v(_vm._s(rate.transaction))
-              ]),
-              _vm._v(" "),
-              _c("td", { attrs: { scope: "row" } }, [
-                _vm._v(
-                  "\n          " +
-                    _vm._s(
+    _c("table", { staticClass: "table" }, [
+      _vm._m(1),
+      _vm._v(" "),
+      _c(
+        "tbody",
+        _vm._l(_vm.rates, function(rate, index) {
+          return _c("tr", { key: index }, [
+            _c("td", { attrs: { scope: "row" } }, [_vm._v(_vm._s(rate.id))]),
+            _vm._v(" "),
+            _c("td", { attrs: { scope: "row" } }, [
+              _vm._v(_vm._s("€" + _vm.eprice(rate)))
+            ]),
+            _vm._v(" "),
+            _c("td", { attrs: { scope: "row" } }, [
+              _vm._v(_vm._s("€" + _vm.timePrice(rate.id)))
+            ]),
+            _vm._v(" "),
+            _c("td", { attrs: { scope: "row" } }, [
+              _vm._v(_vm._s("€" + rate.transaction))
+            ]),
+            _vm._v(" "),
+            _c("td", { attrs: { scope: "row" } }, [
+              _vm._v(
+                "\n          " +
+                  _vm._s(
+                    "€" +
                       (_vm.sum =
                         +_vm.eprice(rate) +
-                        +_vm.timePrice(rate) +
-                        +rate.transaction)
-                    ) +
-                    "\n        "
-                )
-              ])
+                        +_vm.timePrice(rate.id) +
+                        +rate.transaction).toFixed(2)
+                  ) +
+                  "\n        "
+              )
             ])
           ])
-        })
-      ],
-      2
-    )
+        }),
+        0
+      )
+    ])
   ])
 }
 var staticRenderFns = [

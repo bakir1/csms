@@ -19,8 +19,8 @@
         </tr>
       </thead>
 
-      <tbody v-for="rate in rates" :key="rate.id">
-        <tr>
+      <tbody >
+        <tr v-for="(rate,index) in rates" :key="index">
           <td scope="row">{{ rate.id }}</td>
           <td scope="row">{{ rate.energy }}</td>
           <td scope="row">{{ timeConsumed(rate) }}</td>
@@ -47,14 +47,14 @@
         </tr>
       </thead>
 
-      <tbody v-for="rate in rates" :key="rate.id">
-        <tr>
+      <tbody >
+        <tr v-for="(rate,index) in rates" :key="index">
           <td scope="row">{{ rate.id }}</td>
-          <td scope="row">{{ eprice(rate) }}</td>
-          <td scope="row">{{ timePrice(rate) }}</td>
-          <td scope="row">{{ rate.transaction }}</td>
+          <td scope="row">{{ '€' + eprice(rate) }}</td>
+          <td scope="row">{{ '€' + timePrice(rate.id) }}</td>
+          <td scope="row">{{ '€' + rate.transaction }}</td>
           <td scope="row">
-            {{ (sum = +eprice(rate) + +timePrice(rate) + +rate.transaction) }}
+            {{ '€' + (sum = +eprice(rate) + +timePrice(rate.id) + +rate.transaction).toFixed(2) }}
           </td>
         </tr>
       </tbody>
@@ -76,25 +76,26 @@ export default {
         console.log(this.rates);
       });
     },
-    eprice(rate, a) {
-      a = rate.energy * (rate.meterStop - rate.meterStart);
-      rate = Math.round(a) / 1000;
-      return rate.toFixed(2);
+    eprice(rate) {
+      let a = rate.energy * (rate.meterStop - rate.meterStart);
+      return (a / 1000).toFixed(2);
     },
-    timeConsumed(rate, date1, date2, res, days, hours, minutes, seconds) {
-      date1 = new Date(rate.timestampStart);
-      date2 = new Date(rate.timestampStop);
-      res = Math.abs(date1 - date2) / 1000;
-      days = Math.floor(res / 86400);
-      hours = Math.floor(res / 3600) % 24;
-      minutes = Math.floor(res / 60) % 60;
-      seconds = res % 60;
-
-      return (rate = hours + "hr" + ":" + minutes + "min");
+    timeConsumed(rate) {
+      const date1 = new Date(rate.timestampStart);
+      const date2 = new Date(rate.timestampStop);
+      const res = Math.abs(date1 - date2) / 1000;
+      const hours = Math.floor(res / 3600) % 24;
+      const minutes = Math.floor(res / 60) % 60;
+      this.allMinutes.push({
+          rateId: rate.id,
+          timeInMin: Math.floor(res / 60)
+      })
+      
+      return (hours + "hr" + ":" + minutes + "min");
     },
-    timePrice(rate, a) {
-      a = (83 * 2) / 60;
-      return rate = a.toFixed(3);
+    timePrice(id) {
+      let a = (this.allMinutes.find(item => item.rateId === id).timeInMin * 2) / 60;
+      return a.toFixed(3);
     },
   },
   mounted() {
@@ -104,6 +105,7 @@ export default {
     return {
       url: document.head.querySelector('meta[name="url"]').content,
       rates: [],
+      allMinutes: []
     };
   },
 };
