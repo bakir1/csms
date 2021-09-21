@@ -78,7 +78,7 @@ export default {
     },
     eprice(rate) {
       let a = rate.energy * (rate.meterStop - rate.meterStart);
-      return (a / 1000).toFixed(2);
+      return (a / 1000).toFixed(3);
     },
     timeConsumed(rate) {
       const date1 = new Date(rate.timestampStart);

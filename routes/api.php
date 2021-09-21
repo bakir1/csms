@@ -27,7 +27,7 @@ Route::post('/rates', function(){
         'meterStart'    => '1204307',
         'meterStop'     => '1215230',
         'timestampStart' => '2021-04-05 10:04:00',
-        'timestampStop' => '2021-04-05 12:27:00'
+        'timestampStop' => '2021-04-05 11:27:00'
     ]); 
 });
 

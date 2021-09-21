@@ -2239,7 +2239,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     eprice: function eprice(rate) {
       var a = rate.energy * (rate.meterStop - rate.meterStart);
-      return (a / 1000).toFixed(2);
+      return (a / 1000).toFixed(3);
     },
     timeConsumed: function timeConsumed(rate) {
       var date1 = new Date(rate.timestampStart);
