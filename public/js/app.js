@@ -2100,8 +2100,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: 'Home'
+  name: "Home"
 });
 
 /***/ }),
@@ -20122,7 +20136,30 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", [_c("h2", [_vm._v("Home Page")])])
+    return _c("main", { staticClass: "container", attrs: { role: "main" } }, [
+      _c("div", { staticClass: "jumbotron" }, [
+        _c("div", { staticClass: "container" }, [
+          _c("h1", { staticClass: "display-2" }, [_vm._v("CSMS")]),
+          _vm._v(" "),
+          _c("p", [
+            _vm._v(
+              "\n        A csms (charging station management system) such as be.ENERGISED is\n        used to manage charging stations, charging processes and customers\n        (so-called eDrivers) amongst other things.\n      "
+            )
+          ]),
+          _vm._v(" "),
+          _c("p", [
+            _c(
+              "a",
+              {
+                staticClass: "btn btn-primary btn-lg",
+                attrs: { href: "./rate", role: "button" }
+              },
+              [_vm._v("Coding Challenge Result")]
+            )
+          ])
+        ])
+      ])
+    ])
   }
 ]
 render._withStripped = true
