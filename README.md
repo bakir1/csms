@@ -80,17 +80,36 @@ This space will be used to show useful examples of how a project can be used. Ad
 --HOME PAGE--
 
 On the Home Page I was create a navbar with page links (Home,Rating). There is also a small jumbotron with title, paragraph and button,when you click on this button(Coding Challenge Result) then redirect to Rating Page. Thas all about this Home Page.
- -link of the picture --> https://github.com/bakir1/csms/blob/master/screenshots/home_page.JPG 
+
+-link of the picture --> https://github.com/bakir1/csms/blob/master/screenshots/home_page.JPG 
  
  --RATING PAGE--
 
 On the Rating Page I was create a two tables(Charging Process and Charging Process Rating), Charging Process table show all data given in this process(code challenge).All this date showed from database. Second table Charging Process Rating show all information which is calculated and give the result of that calculation.
- -link of the picture --> https://github.com/bakir1/csms/blob/master/screenshots/rate_page.JPG
+
+-link of the picture --> https://github.com/bakir1/csms/blob/master/screenshots/rate_page.JPG
  
  --MySQL DB --(table: rates)
 
 Showing all rows and columns of ordering data.
+
  -link of the picture --> https://github.com/bakir1/csms/blob/master/screenshots/rate_page.JPG
  
  
+## Coding Challenge 2
+Suggest improvements to the API design.
 
+My suggestion to API design:
+
+Insted: "rate": { "energy": 0.3, "time": 2, "transaction": 1 }, put this data values in rate_id
+
+change: "rate_id": { (rate_id) },
+
+Input
+{
+ 
+ "rate_id": { (rate_id) },
+ 
+ "cdr": { "meterStart": 1204307, "timestampStart": "2021-04-05T10:04:00Z", "meterStop": 1215230, "timestampStop":
+"2021-04-05T11:27:00Z" }
+}
